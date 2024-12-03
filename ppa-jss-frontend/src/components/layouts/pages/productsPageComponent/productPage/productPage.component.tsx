@@ -8,10 +8,12 @@ import { ChatBubbleLeftIcon } from "@heroicons/react/20/solid";
 import { useStore } from "@nanostores/react";
 import { Button, Spinner, useDisclosure } from "@nextui-org/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import WriteComentComponent from "./writeComment.component";
 import ProductCommentsComponent from "./productComments.component";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
+import generatePDF from "react-to-pdf";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 interface CustomProps {
     productId: string
@@ -35,7 +37,6 @@ const ProductPageComponent: React.FC<CustomProps> = ({
     }, client)
 
     const [product, setProduct] = useState<IProduct>()
-
     useEffect(() => {
         console.log(data)
         if (!data) return
@@ -43,7 +44,7 @@ const ProductPageComponent: React.FC<CustomProps> = ({
     }, [data])
 
     useEffect(() => {
-        if (deleteProductMutation.isSuccess){
+        if (deleteProductMutation.isSuccess) {
             window.location.href = "/"
         }
     }, [deleteProductMutation])
@@ -78,7 +79,7 @@ const ProductPageComponent: React.FC<CustomProps> = ({
                     </div>
                 </div>
                 <div className=" mt-8">
-                    <h1 className=" flex items-center text-3xl font-light text-default-800 mb-2"><ChatBubbleLeftIcon width={20} className=" mr-2" />Nuestros Productos</h1>
+                    <h1 className=" flex items-center text-3xl font-light text-default-800 mb-2"><ChatBubbleLeftIcon width={20} className=" mr-2" />Comentarios</h1>
                     <WriteComentComponent productId={productId} />
                     <ProductCommentsComponent productId={productId} />
                 </div>

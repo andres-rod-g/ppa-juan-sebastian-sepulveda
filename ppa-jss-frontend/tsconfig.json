@@ -9,5 +9,6 @@
         "./src/*"
       ]
     }
-  }
+  },
+  "require": ["tsconfig-paths/register"]
 }
