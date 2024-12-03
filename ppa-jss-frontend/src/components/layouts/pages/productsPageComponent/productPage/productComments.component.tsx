@@ -64,7 +64,7 @@ const ProductCommentsComponent: React.FC<Props> = ({
 
     return <>
         {
-            data.data.graphData.length > 0 
+            data?.data?.graphData?.length && data.data.graphData.length > 0 
                 ?
                     <BarChart className="h-80" data={data.data.graphData} index={"_id"} categories={["cantidad"]} />
                 : 
