@@ -31,14 +31,16 @@ const WriteComentComponent: React.FC<Props> = ({
                     <Textarea
                 placeholder="Escribe tu comentario"
                 classNames={{
-                    inputWrapper: "bg-white"
+                    inputWrapper: "bg-white",
+                    input: "border-0"
                 }}
                 onChange={(e) => {
                     setText(e.target.value)
                 }}
                 endContent={
                     (
-                        <Button color="primary" className=" text-white" onClick={() => {
+                        <Button color="primary"
+                        className=" text-white border-0" onClick={() => {
                             if (text.length < 1) return
                             commentMutation.mutate({
                                 productId,

@@ -45,12 +45,33 @@ const getComments = async (req: Request, res: Response) => {
             return false;
         });
 
+    const temp2 = await CommentModel.aggregate([
+
+        {
+            $match: {
+                productId
+            }
+        },
+        {
+            $group: {
+                _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+                "cantidad": { $sum: 1 },
+            },
+        },
+        {
+            $sort: { _id: -1 },
+        },
+        {
+            $limit: 15,
+        },
+    ])
+
     if (!temp)
         return res
             .status(400)
             .json({ message: "Something bad while trying to ifnd comments" });
 
-    return res.status(200).json({ data: temp });
+    return res.status(200).json({ data: temp, graphData: temp2 });
 };
 
 const postComment = async (req: Request, res: Response) => {

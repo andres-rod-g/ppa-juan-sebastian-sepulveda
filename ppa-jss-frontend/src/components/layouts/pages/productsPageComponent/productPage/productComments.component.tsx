@@ -1,4 +1,5 @@
 import API from "@/api/API";
+import { BarChart } from "@/components/tremor/components/barChar";
 import type { IComment } from "@/interfaces/models/comments.interface";
 import { queryClient } from "@/stores/query";
 import { Icon } from "@iconify/react/dist/iconify.js";
@@ -62,6 +63,14 @@ const ProductCommentsComponent: React.FC<Props> = ({
     }
 
     return <>
+        {
+            data.data.graphData.length > 0 
+                ?
+                    <BarChart className="h-80" data={data.data.graphData} index={"_id"} categories={["cantidad"]} />
+                : 
+                    <div className=" flex w-full py-10 bg-default-200 animate-pulse my-4 rounded-xl text-center items-center justify-center text-default-500 font-light text-xs">No hay datos para mostrar.</div>
+        }
+
         <div className=" flex flex-row space-x-2">
             <a
                 className=" w-full"
