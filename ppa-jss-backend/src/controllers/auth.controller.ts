@@ -6,6 +6,22 @@ import UserModel, { EUserRole } from "@/models/user.model";
 import bcrypt from "bcrypt";
 import { JWT_REFRESH_SECRET, JWT_SECRET } from "@/utils/env";
 import utils from "@/utils/utils";
+import { ObjectId } from "mongodb";
+
+
+const getUserData = async (req: Request, res: Response) => {
+    const {userId} = req.query
+
+    if (!userId) return res.status(400).json({})
+    
+    const temp = await UserModel.findById(new ObjectId(userId as string))
+
+    console.log("User got", temp)
+  
+    if (!temp) return res.status(400).json({message: "Something wrong"})
+  
+      return res.status(200).json({data: temp})
+  }
 
 const login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
@@ -120,4 +136,5 @@ export default {
     login,
     register,
     registerAndLogin,
+    getUserData
 };

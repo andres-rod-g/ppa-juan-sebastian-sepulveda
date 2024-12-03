@@ -31,6 +31,8 @@ const getProduct = async (req: Request, res: Response) => {
 
     console.log(productId)
 
+    if (!productId) return res.status(400).json({})
+
     const temp = await ProductModel.findById(new ObjectId(productId))
 
     if (!temp) return res.status(404).json({message: "Not found"});

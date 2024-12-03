@@ -4,12 +4,11 @@ import axios from "axios";
 
 const withCredentials = true;
 
-const userLogin = async (email: string, password: string) => {
+const userLogin = async (userData: Object) => {
     return await axios.post(
         `${API_URL}/auth/login`,
         {
-            email,
-            password,
+            ...userData,
         },
         {
             withCredentials,
@@ -27,6 +26,10 @@ const fastRegisterUser = async (userData: Object) => {
             withCredentials,
         }
     );
+};
+
+const getUserData = async (userId: string) => {
+    return await axios.get(`${API_URL}/auth?userId=${userId}`);
 };
 
 const checkUserAuthCookies = async () => {
@@ -52,17 +55,21 @@ const createProduct = async (data: IProduct) => {
         withCredentials,
     });
 };
-const updateProduct = async (data: IProduct) => {
-    // await axios.(`${API_URL}/`, {
-    //   withCredentials
-    // })
+const updateProduct = async (productId: string, data: IProduct) => {
+    return await axios.put(`${API_URL}/products/${productId}`, 
+      {
+        ...data
+      },
+      {
+        withCredentials,
+    });
 };
-const deleteProduct = async () => {
-    // await axios.(`${API_URL}/`, {
-    //   withCredentials
-    // })
+const deleteProduct = async (productId?: string) => {
+    await axios.delete(`${API_URL}/products/${productId}`, {
+      withCredentials
+    })
 };
-const getProduct = async (productId: string) => {
+const getProduct = async (productId?: string) => {
     return await axios.get(`${API_URL}/products/${productId}`, {
         withCredentials,
     });
@@ -73,7 +80,7 @@ const getProducts = async () => {
     });
 };
 
-const createComment = async (data: {productId: string, text: string}) => {
+const createComment = async (data: { productId: string; text: string }) => {
     await axios.post(
         `${API_URL}/comments`,
         {
@@ -100,10 +107,11 @@ const getComment = async () => {
     //   withCredentials
     // })
 };
-const getComments = async () => {
-    // await axios.(`${API_URL}/`, {
-    //   withCredentials
-    // })
+const getComments = async (productId?: string) => {
+    // @ts-ignore
+    return await axios.get(`${API_URL}/comments?productId=${productId}`, {
+        withCredentials,
+    });
 };
 
 export default {
@@ -115,4 +123,8 @@ export default {
     getProducts,
     getProduct,
     createComment,
+    getComments,
+    getUserData,
+    updateProduct,
+    deleteProduct,
 };

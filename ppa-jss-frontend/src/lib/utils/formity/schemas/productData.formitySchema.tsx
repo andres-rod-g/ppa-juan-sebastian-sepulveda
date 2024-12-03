@@ -1,15 +1,15 @@
 import { CalendarDate, getLocalTimeZone, parseDate, today } from "@internationalized/date";
 import type { Schema } from "formity";
 
-const fastUserRegisterSchema: Schema = [
+const productDataSchema: Schema = [
   {
     form: {
       defaultValues: {
-        name: ["", []],
-        description: ["", []],
-        price: ["", []],
-        imageUrl: ["", []],
-        tags: ["", []],
+        name: ["$name", []],
+        description: ["$description", []],
+        price: ["$price", []],
+        imageUrl: ["$imageUrl", []],
+        tags: ["$tags", []],
       },
       resolver: {
         name: [
@@ -22,7 +22,6 @@ const fastUserRegisterSchema: Schema = [
         ],
         price: [
           [{ "#$ne": ["#$price", ""] }, "El valor es Requerido"],
-          [{ "#$lt": [{ "#$strLen": "#$price" }, 20] }, "Máximo 20 caracteres"],
         ],
         imageUrl: [
           [{ "#$ne": ["#$imageUrl", ""] }, "El valor es Requerido"],
@@ -101,4 +100,4 @@ const fastUserRegisterSchema: Schema = [
 ];
 
 
-export default fastUserRegisterSchema;
+export default productDataSchema;

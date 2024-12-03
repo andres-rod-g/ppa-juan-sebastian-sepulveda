@@ -20,7 +20,6 @@ const WriteComentComponent: React.FC<Props> = ({
 
     const commentMutation = useMutation({
         mutationFn: API.createComment,
-        
     }, client)
 
     return (
@@ -35,10 +34,13 @@ const WriteComentComponent: React.FC<Props> = ({
                 }}
                 endContent={
                     (
-                        <Button color="primary" className=" text-white" onClick={() => commentMutation.mutate({
-                            productId,
-                            text
-                        })}><PaperAirplaneIcon width={19} height={19}/></Button>
+                        <Button color="primary" className=" text-white" onClick={() => {
+                            if (text.length < 1) return
+                            commentMutation.mutate({
+                                productId,
+                                text
+                            })
+                        }}><PaperAirplaneIcon width={19} height={19}/></Button>
                     )
                 }
             />

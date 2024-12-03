@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express';
 import authController from '@/controllers/auth.controller';
 import jwtMiddleware from '@/middlewares/jwt.middleware';
-import { body } from 'express-validator';
+import { body, query } from 'express-validator';
 import UserModel from '@/models/user.model';
 
 import expressValidatorMiddleware from '@/middlewares/expressValidator.middleware';
@@ -23,6 +23,15 @@ router.post(
 router.get('/protected', jwtMiddleware.jwtMiddleware, (req, res) => {
   res.json({ message: 'This is a protected route', userId: req.userId, userRole: req.userRole });
 });
+
+router.get(
+  '/',
+  [
+    query("userId").notEmpty().withMessage("Campo requerido")
+  ],
+  expressValidatorMiddleware.responseWithErrors,
+  authController.getUserData
+)
 
 // Endpoint para registro
 router.post(
