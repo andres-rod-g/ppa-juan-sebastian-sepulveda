@@ -22,7 +22,8 @@ const CreateProductComponent: React.FC<CustomProps> = ({
     const {data, isSuccess, isError} = useQuery({
         queryKey: ['product', slug],
         queryFn: () => API.getProduct(slug),
-        retry: false
+        retry: false,
+        enabled: !!slug
     }, client)
 
     const postProductMutation = useMutation({
@@ -44,7 +45,7 @@ const CreateProductComponent: React.FC<CustomProps> = ({
     }
 
     useEffect(() => {
-    }, [isSuccess])
+    }, [isSuccess, postProductMutation, updateProductMutation])
 
     if (postProductMutation.isPending || updateProductMutation.isPending) {
         return <>
@@ -63,11 +64,11 @@ const CreateProductComponent: React.FC<CustomProps> = ({
                 
                 <Formity components={components} schema={productDataSchema} variables={isSuccess ? {...data!.data.data, _id: undefined, __v: undefined, createdAt: undefined, updatedAt: undefined, tags: data!.data.data.tags.join(",")} : undefined} onReturn={handleReturn} />
                 {
-                    postProductMutation.isError || updateProductMutation.isError && <p className=" text-danger-500 font-bold">Hubo un error a la hora de crear el producto. Intenta mas tarde.</p>
+                    (postProductMutation.isError || updateProductMutation.isError) && <p className=" text-danger-500 font-bold">Hubo un error a la hora de crear el producto. Intenta mas tarde.</p>
                 }
 
                 {
-                    postProductMutation.isSuccess || updateProductMutation.isSuccess && <p className=" text-success-500 font-bold">Producto creado con éxito.</p>
+                    (postProductMutation.isSuccess || updateProductMutation.isSuccess) && <p className=" text-success-500 font-bold">Acción realizada con éxito.</p>
                 }
             </DefaultSizedContainer>
         </>

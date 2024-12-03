@@ -5,6 +5,7 @@ import { useStore } from "@nanostores/react";
 import { Button } from "@nextui-org/button";
 import { Textarea } from "@nextui-org/input";
 import { useMutation } from "@tanstack/react-query";
+import Cookies from "js-cookie";
 import { useState } from "react";
 
 type Props = {
@@ -24,7 +25,10 @@ const WriteComentComponent: React.FC<Props> = ({
 
     return (
         <div>
-            <Textarea
+            {
+                Cookies.get("token")
+                    ?
+                    <Textarea
                 placeholder="Escribe tu comentario"
                 classNames={{
                     inputWrapper: "bg-white"
@@ -44,6 +48,10 @@ const WriteComentComponent: React.FC<Props> = ({
                     )
                 }
             />
+                    :
+                        <p className=" text-primary">Para comentar, primero inicia sesión o regístrate</p>
+            }
+            
             {
                 commentMutation.isSuccess && <p className=" text-success-500 font-bold">Comentario publicado.</p>
             }

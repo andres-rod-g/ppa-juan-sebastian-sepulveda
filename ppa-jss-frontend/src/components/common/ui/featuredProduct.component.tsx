@@ -21,13 +21,15 @@ const FeaturedProductComponent: React.FC<CustomProps> = ({
                 <div className=" flex flex-col">
                     <h1 className=" font-bold text-3xl">{product.name}</h1>
                     <p className=" text-md font-semibold text-primary">${beautifyNumber(product.price)}</p>
-                    <ProductTagsComponent product={product}/>
+                    <ProductTagsComponent product={product} />
                 </div>
                 <p className=" text-sm font-light text-default-500 line-clamp-3">{product.description}</p>
-                <Button color="primary" className=" flex text-white"><ChatBubbleLeftIcon width={20}/>Comentarios</Button>
+                <a className=" mt-auto flex flex-col w-full" href={`/products/${product._id}`}>
+                    <Button color="primary" className=" flex text-white mt-2"><ChatBubbleLeftIcon width={20} />Comentarios</Button>
+                </a>
             </div>
             <div className="flex flex-row items-center absolute top-3 right-3 bg-danger-500 p-2 font-bold text-xs text-white rounded-sm">
-                <StarIcon width={21} className=" pr-1"/>
+                <StarIcon width={21} className=" pr-1" />
                 {featuredText}
             </div>
         </div>
