@@ -9,7 +9,7 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   output: "server",
   adapter:  node({
-    mode: "middleware"
+    mode: "standalone"
   }),
   devToolbar: {
     enabled: false

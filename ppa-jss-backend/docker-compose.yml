@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000" # Exponer puerto 3000 en la máquina host
+    environment:
+      - MONGO_URI=${MONGODB_URI} # Variable de entorno para conectar a MongoDB
+    depends_on:
+      - mongo # Garantiza que MongoDB esté listo antes de iniciar la aplicación
+
+  mongo:
+    image: mongo:6
+    container_name: mongodb
+    ports:
+      - "27017:27017" # Exponer puerto de MongoDB
+    volumes:
+      - mongodb_data:/data/db # Persistir datos en un volumen
+
+volumes:
+  mongodb_data:

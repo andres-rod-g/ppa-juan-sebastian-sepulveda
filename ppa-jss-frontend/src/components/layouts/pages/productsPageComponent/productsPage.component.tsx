@@ -1,7 +1,6 @@
 import API from "@/api/API"
 import DefaultSizedContainer from "@/components/common/constraints/defaultSizedContainer.component"
 import ListOfProductsComponent from "@/components/common/ui/listOfProducts.component"
-import muckData from "@/constants/muckData"
 import type { IProduct } from "@/interfaces/models/products.interface"
 import { queryClient } from "@/stores/query"
 import { PlusCircleIcon } from "@heroicons/react/20/solid"
