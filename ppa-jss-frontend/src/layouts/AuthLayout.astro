@@ -1,0 +1,53 @@
+---
+import '@/styles/globals.css'
+import { ViewTransitions } from 'astro:transitions';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Meie+Script&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> -->
+
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+        <ViewTransitions/>
+	</head>
+	<body class="">
+        <div class="flex flex-row h-[100dvh] bg-white w-full">
+            <div class="flex flex-col justify-center items-center p-8 py-16 w-3/5 h-full z-0 space-y-8" transition:animate="fade">
+                <slot />
+                <small>Powered by <span class=" font-semibold text-primary">ReservaYa</span></small>
+            </div>
+            <div class=" w-full h-full p-2 z-10">
+                <div class=" w-full h-full rounded-xl bg-blue-600">
+                </div>
+            </div>
+        </div>
+	</body>
+</html>
+
+<style>
+	body {
+        background-color: #ECECEC;
+	}
+
+	/* styles.css */
+	.full-height {
+	height: calc(var(--vh, 1vh) * 100);
+	}
+
+</style>

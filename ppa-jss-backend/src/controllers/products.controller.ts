@@ -16,7 +16,7 @@ const createProduct = async (req: Request, res: Response) => {
         description,
         price,
         imageUrl,
-        tags,
+        tags: (tags as string).split(","),
         createdAt: new Date(),
         updatedAt: new Date()
     }).then(() => true).catch(() => false)
@@ -28,6 +28,8 @@ const createProduct = async (req: Request, res: Response) => {
 
 const getProduct = async (req: Request, res: Response) => {
     const { productId } = req.params
+
+    console.log(productId)
 
     const temp = await ProductModel.findById(new ObjectId(productId))
 
@@ -61,7 +63,7 @@ const updateProduct = async (req: Request, res: Response) => {
                 description,
                 price,
                 imageUrl,
-                tags,
+                tags: (tags as string).split(","),
                 updatedAt: new Date()
             },
             {

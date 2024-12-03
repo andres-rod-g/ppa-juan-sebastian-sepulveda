@@ -32,7 +32,6 @@ router.post(
     body('name').notEmpty().withMessage('El nombre es obligatorio'),
     body('email').isEmail().withMessage('El correo electrónico no es válido'),
     body('password').isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres'),
-    body('phone').notEmpty().withMessage('El número de teléfono es obligatorio'),
   ],
   expressValidatorMiddleware.responseWithErrors,
   authController.register
@@ -46,9 +45,6 @@ router.post(
     body('name').notEmpty().withMessage('El nombre es obligatorio'),
     body('email').isEmail().withMessage('El correo electrónico no es válido'),
     body('password').isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres'),
-    body('phone').notEmpty().withMessage('El número de teléfono es obligatorio'),
-    body('gender').notEmpty().withMessage('El género es obligatorio'),
-    body('birthDay').isDate().withMessage('La fecha de nacimiento no es una fecha válida'),
   ],
   expressValidatorMiddleware.responseWithErrors,
   authController.registerAndLogin

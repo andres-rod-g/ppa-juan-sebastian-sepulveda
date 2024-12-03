@@ -10,14 +10,12 @@ const productsRouter = Router()
 
 productsRouter.post(
     "/",
-    jwtMiddleware.jwtMiddleware, // Must be logged in.
-    roleMiddleware.isAdminMiddleware, // Must be admin to post products
     [
         body("name").isLength({min: 3, max: 50}).withMessage("Wrong text. Min: 3, Max: 50"),
         body("description").isLength({min: 3}).withMessage("Wrong text. Min: 3"),
         body("price").isInt({min: 0}).withMessage("Price most be a number greater or equal than 0"),
         body("imageUrl").isLength({min: 3 }).withMessage("Wrong text. Min: 3"),
-        body("tags").isArray().withMessage('Must be an array.'),
+        // body("tags").isArray().withMessage('Must be an array.'),
     ],
     expressValidatorMiddleware.responseWithErrors, // Validate params
     productsController.createProduct

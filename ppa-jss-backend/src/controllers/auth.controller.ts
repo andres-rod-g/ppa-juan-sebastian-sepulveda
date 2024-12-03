@@ -19,7 +19,6 @@ const login = async (req: Request, res: Response) => {
     const token = jwt.sign(
         {
             userId: user._id,
-            role: user.role,
         },
         JWT_SECRET,
         { expiresIn: "15m" }
@@ -27,7 +26,6 @@ const login = async (req: Request, res: Response) => {
     const refreshToken = jwt.sign(
         {
             userId: user._id,
-            role: user.role,
         },
         JWT_REFRESH_SECRET,
         { expiresIn: "7d" }
@@ -43,7 +41,7 @@ const login = async (req: Request, res: Response) => {
 };
 
 const register = async (req: Request, res: Response) => {
-    const { name, email, password, phone } = req.body;
+    const { name, email, password } = req.body;
 
     try {
         // Comprobar si el usuario ya existe
@@ -60,8 +58,6 @@ const register = async (req: Request, res: Response) => {
             name,
             email,
             password: hashedPassword,
-            phone,
-            role: EUserRole.USER,
         });
 
         res.status(201).json({ message: "Usuario registrado con éxito" });
@@ -71,7 +67,7 @@ const register = async (req: Request, res: Response) => {
 };
 
 const registerAndLogin = async (req: Request, res: Response) => {
-    const { name, email, password, phone } = req.body;
+    const { name, email, password } = req.body;
 
 
     try {
@@ -89,14 +85,11 @@ const registerAndLogin = async (req: Request, res: Response) => {
             name,
             email,
             password: hashedPassword,
-            phone,
-            role: EUserRole.USER,
         });
 
         const token = jwt.sign(
             {
                 userId: newUser._id,
-                role: newUser.role,
             },
             JWT_SECRET,
             { expiresIn: "15m" }
@@ -104,7 +97,6 @@ const registerAndLogin = async (req: Request, res: Response) => {
         const refreshToken = jwt.sign(
             {
                 userId: newUser._id,
-                role: newUser.role,
             },
             JWT_REFRESH_SECRET,
             { expiresIn: "7d" }

@@ -1,0 +1,13 @@
+---
+import IndexComponent from '@/components/layouts/pages/index/index.component';
+import ProductPageComponent from '@/components/layouts/pages/productsPageComponent/productPage/productPage.component';
+import ProductsPageComponent from '@/components/layouts/pages/productsPageComponent/productsPage.component';
+import Layout from '@/layouts/Layout.astro';
+
+const {productId} = Astro.params
+---
+
+<Layout title="Inicio" marginOnTop={true}>
+	<ProductPageComponent productId={productId ?? ""} client:load/>
+</Layout>
+
